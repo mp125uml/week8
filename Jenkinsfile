@@ -30,7 +30,8 @@ podTemplate(yaml: '''
                 }
                 stage('test calculator') {
                     sh '''
-                    /bin/test $(curl calculator-service:8080/sum?a=1\\&b=2) -eq 3
+		    curl 'calculator-service:8080/sum?a=1&b=2'
+                    curl 'calculator-service:8080/div?a=1&b=0'
                 '''
                 }
               }
