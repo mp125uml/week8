@@ -13,6 +13,8 @@ podTemplate(yaml: '''
 ''') {
       node(POD_LABEL) {
             stage('k8s') {
+              git 'https://github.com/mp125uml/week8.git'
+              container('gradle') {
                 stage('start calculator') {
                     sh '''
                     pwd
@@ -28,6 +30,9 @@ podTemplate(yaml: '''
                 }
                 stage('test calculator') {
                     sh '''
+                    CALCIP=`hostname -i`
+                    export CALCIP
+                    echo $CALCIP
                     chmod +x gradlew
                     ./gradlew acceptanceTest -Dcalculator.url=http://calculator-service:8080
                 '''
@@ -36,4 +41,5 @@ podTemplate(yaml: '''
             }
 
       }
-    
+    }
+
