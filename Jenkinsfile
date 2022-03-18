@@ -18,7 +18,7 @@ podTemplate(yaml: '''
                 stage('test calculator') {
                     sh '''
                     chmod +x gradlew
-		            ./gradlew acceptanceTest -Dcalculator.url=http://calculator-service:8080
+		            ./gradlew acceptanceTest -Dcalculator.url=http://$CALCIP:8080
                 '''
                 }
               }
