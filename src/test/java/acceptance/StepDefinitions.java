@@ -34,6 +34,12 @@ public class StepDefinitions {
         assertEquals(expectedResult, result);
     }
     
+    @Given("^I have dividend and divisor: (.*) and (.*)$")
+    public void i_have_two_numbers(String a, String b) throws Throwable {
+        this.a = a;
+        this.b = b;
+    }
+
     @When("^the calculator divides them$")
     public void the_calculator_divides_them() throws Throwable {
         String url = String.format("%s/sum?a=%s&b=%s", server, a, b);
