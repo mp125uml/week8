@@ -3,8 +3,8 @@ podTemplate(yaml: '''
     kind: Pod
     spec:
       containers:
-      - name: gradle
-        image: gradle:jdk8
+      - name: centos
+        image: centos:latest
         command:
         - sleep
         args:
@@ -14,8 +14,8 @@ podTemplate(yaml: '''
       node(POD_LABEL) {
             stage('k8s') {
               git 'https://github.com/mp125uml/week8.git'
-              container('gradle') {
-                stage('start calculator') {
+              container('centos') {
+                stage('deploy calculator') {
                     sh '''
                     pwd
                     ls /bin/test
@@ -24,22 +24,12 @@ podTemplate(yaml: '''
                     echo "chmod"
                     chmod +x ./kubectl
                     echo "apply"
-                    ./kubectl apply -f calculator.yaml
-                    ./kubectl apply -f hazelcast.yaml
+                    ./kubectl apply -f calculator.yaml -n devops-tools
+                    ./kubectl apply -f hazelcast.yaml -n devops-tools
                     '''
-                }
-                stage('test calculator') {
-                    sh '''
-                    CALCIP=`hostname -i`
-                    export CALCIP
-                    echo $CALCIP
-                    chmod +x gradlew
-                    ./gradlew acceptanceTest -Dcalculator.url=http://calculator-service:8080
-                '''
                 }
               }
             }
 
       }
     }
-
