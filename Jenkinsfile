@@ -17,10 +17,7 @@ podTemplate(yaml: '''
               container('centos') {
                 stage('deploy calculator') {
                     sh '''
-                    pwd
-                    ls /bin/test
                     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-                    echo "chmod"
                     chmod +x ./kubectl
                     ./kubectl apply -f calculator.yaml -n devops-tools
                     ./kubectl apply -f hazelcast.yaml -n devops-tools
