@@ -6,3 +6,4 @@ Tryng plugin
 Fuck
 Trying again
 Can't tell
+Please
