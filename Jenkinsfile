@@ -19,11 +19,9 @@ podTemplate(yaml: '''
                     sh '''
                     pwd
                     ls /bin/test
-                    echo "getting kubectl"
                     curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
                     echo "chmod"
                     chmod +x ./kubectl
-                    echo "apply"
                     ./kubectl apply -f calculator.yaml -n devops-tools
                     ./kubectl apply -f hazelcast.yaml -n devops-tools
                     '''
